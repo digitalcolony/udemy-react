@@ -8,7 +8,9 @@ class App extends Component {
       { name: "Max", age: 28 },
       { name: "Manu", age: 29 },
       { name: "Stefanie", age: 26 }
-    ]
+    ],
+    otherState: "some other value",
+    showPersons: false
   };
 
   switchNameHandler = newName => {
@@ -32,6 +34,11 @@ class App extends Component {
     });
   };
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
+  };
+
   render() {
     const style = {
       backgroundColor: "white",
@@ -40,32 +47,40 @@ class App extends Component {
       padding: "8px",
       cursor: "pointer"
     };
+
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+          />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, "Evil Max!")}
+            changed={this.nameChangeHandler}
+          >
+            My hobby: fishing.
+          </Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>Hello there!!!</h1>
         <p>This is really working</p>
-        <button
-          style={style}
-          onClick={() => this.switchNameHandler("Amazing Max!")}
-        >
-          Switch Name
+        <button style={style} onClick={this.togglePersonsHandler}>
+          Toggle Persons
         </button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, "Evil Max!")}
-          changed={this.nameChangeHandler}
-        >
-          My hobby: fishing.
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-        />
+        {persons}
       </div>
     );
   }

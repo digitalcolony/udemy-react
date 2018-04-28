@@ -10,13 +10,6 @@ class App extends Component {
     language: "english"
   };
 
-  userswitchUsernameHandler = newUsername => {
-    // this.setState({
-    //   username: "sammy!!!",
-    //   language: "spanish"
-    // });
-  };
-
   usernameChangedHandler = event => {
     this.setState({ username: event.target.value });
   };
@@ -31,6 +24,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button style={style} onClick={() => this.togglePersonsHandler}>
+          Switch Name
+        </button>
+
         <UserInput
           changed={this.usernameChangedHandler}
           currentName={this.state.username}
@@ -38,10 +37,7 @@ class App extends Component {
         <UserOutput userName={this.state.username} />
         <UserOutput userName={this.state.username} />
 
-        <button onClick={this.switchLanguageHandler.bind(this)}>
-          Make Spanish
-        </button>
-        <p>{this.state.language}</p>
+        <button onClick={this.switchLanguageHandler.bind(this)} />
       </div>
     );
   }
